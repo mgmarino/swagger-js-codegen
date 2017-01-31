@@ -7,7 +7,13 @@ import {SuperAgentStatic} from "superagent";
 
 export type CallbackHandler = (err: any, res?: request.Response) => void;
 {{#definitions}}
+{{ #tsType.isObject }}
+export interface {{ &name }} {{ #tsType.derives }} extends {{ extendsList }}{{ /tsType.derives }}
+  {{#tsType}}{{> type}}{{/tsType}}
+{{ /tsType.isObject }}
+{{ ^tsType.isObject }}
 export type {{&name}} = {{#tsType}}{{> type}}{{/tsType}};
+{{ /tsType.isObject }}
 {{/definitions}}
 
 /**
